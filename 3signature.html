@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoonchive</title>
+    <link rel="stylesheet" href="3styles_signature.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <a href="1index.html">Yoonchive</a>
+        <a href="2purchase.html">Purchase</a>
+        <a href="3signature.html">Signature</a>
+    </div>
+    <div class="content">
+        <p>Thank you for watching.<br>Sign please!</p>
+    </div>
+    <div id="svg-halftone-pattern">
+        <div id="pattern"></div>
+    </div>
+    <div class="printercover">
+        <img src="media3/1.svg" alt="프린터 커버" />
+        <div class="printtrigger">
+            <img src="media3/trigger.svg" alt="프린터 트리거" />
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const svg_halftone_pattern = document.querySelector("#svg-halftone-pattern > #pattern");
+
+            // 점 생성
+            for (let i = 0; i < 70 * 20; i += 1) {
+                const point = document.createElement("div");
+                point.classList.add("point");
+                svg_halftone_pattern.appendChild(point);
+            }
+
+            let isDragging = false; // 드래그 상태를 추적하는 플래그
+
+            // 마우스 눌렀을 때 드래그 시작
+            window.addEventListener("mousedown", function () {
+                isDragging = true;
+            });
+
+            // 마우스 뗐을 때 드래그 종료
+            window.addEventListener("mouseup", function () {
+                isDragging = false;
+            });
+
+            // 마우스 움직임 감지
+            window.addEventListener("mousemove", function (event) {
+                const mouseX = event.clientX;
+                const mouseY = event.clientY;
+
+                const points = document.querySelectorAll(".point");
+                const alpha = 7; // 감지 영역 반경
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                if (isDragging) { // 드래그 중일 때만 실행
+                    points.forEach(point => {
+                        const pointBounds = point.getBoundingClientRect(); // 각 점의 화면 위치 가져오기
+
+                        // 점의 화면 상 좌표와 마우스 위치 비교
+                        if (
+                            mouseX > pointBounds.left - alpha &&
+                            mouseX < pointBounds.right + alpha &&
+                            mouseY > pointBounds.top - alpha &&
+                            mouseY < pointBounds.bottom + alpha
+                        ) {
+                            point.classList.add("dragged"); // 드래그 중일 때만 클래스 추가
+                        }
+                    });
+                }
+            });
+
+            const printTrigger = document.querySelector('.printtrigger');
+
+            printTrigger.addEventListener('click', () => {
+    const pattern = document.getElementById('svg-halftone-pattern');
+
+
+    
+    html2canvas(pattern).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+
+        // 작은 팝업 생성
+        const popup = document.createElement('div');
+        popup.style.position = 'absolute'; // fixed에서 absolute로 변경
+        popup.style.width = '500px';
+        popup.style.height = '300px';
+        popup.style.top = 'calc(78% + 20px)'; // 프린터 밑으로 적절히 배치
+        popup.style.left = '50%';
+        popup.style.transform = 'translateX(-50%)'; // 가로 중심 맞추기
+        popup.style.backgroundColor = '#fff';
+        popup.style.border = '1px solid #ccc';
+        popup.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        popup.style.zIndex = '-1';
+        popup.style.display = 'flex';
+        popup.style.justifyContent = 'center';
+        popup.style.alignItems = 'center';
+
+        const img = document.createElement('img');
+        img.src = imgData;
+        img.style.maxWidth = '100%';
+        img.style.maxHeight = '100%';
+
+        popup.appendChild(img);
+
+        document.body.appendChild(popup);
+    });
+});
+
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>

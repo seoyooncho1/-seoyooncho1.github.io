@@ -1,0 +1,215 @@
+/* 전체 페이지 스타일 */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    pointer-events: auto;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace; 
+
+
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0; /* 배경색 */
+    cursor: url('./media/mousecursor.png'), auto !important;
+}
+
+/* 커서 관련 스타일 */
+button:hover, a:hover,
+*, html, body:active {
+    cursor: url('./media/mousecursor.png'), auto !important;
+}
+
+h2 {
+    line-height: 1;
+
+}
+body {
+    cursor: url('./media/mousecursor.png') !important;
+}
+body:active {
+    cursor: url('./media/mousecursor.png') !important;
+    
+}
+button:hover, a:hover {
+    cursor: url('./media/mousecursor.png') !important;
+}
+
+*, html, body {
+    cursor: url('./media/mousecursor.png') !important;
+}
+/* 기본 본문 폰트 크기 */
+p {
+    font-size: 30px;  /* 기본 폰트 크기 */
+    color: black;
+}
+
+/* 작은 폰트 */
+.small-text {
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+/* 중간 폰트 */
+.medium-text {
+    font-size: 18px;
+    line-height: 0.5;
+}
+
+/* 큰 폰트 */
+.large-text {
+    font-size: 24px;
+    line-height: 0.5;
+}
+
+
+
+/* 왼쪽 고정 독바 스타일 */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(100% / 30); /* 기본적으로 페이지 가로 길이의 30분의 1 */
+    height: 100%;
+    background-color: #ffffff;
+    color: black; /* 텍스트 색상 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+    overflow: hidden; /* 기본적으로 텍스트가 보이지 않도록 숨김 */
+    transition: width 0.3s ease; /* 너비를 부드럽게 변경 */
+    z-index: 8; /* 독바가 비디오 위로 오도록 설정 */
+}
+
+/* 기본적으로 텍스트는 보이지 않도록 설정 */
+.sidebar a {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    margin: 20px 0;
+    opacity: 0; /* 기본 상태에서 텍스트는 보이지 않음 */
+    transition: opacity 0.3s ease; /* 텍스트의 불투명도를 부드럽게 변경 */
+}
+
+/* 호버 시 독바가 확장되고 텍스트가 나타나도록 설정 */
+.sidebar:hover {
+    width: calc(100% / 20); /* 호버 시 페이지 가로 길이의 20분의 1로 확장 */
+}
+
+.sidebar:hover a {
+    opacity: 1; /* 호버 시 텍스트가 보이도록 설정 */
+}
+
+/* 클릭한 상태에서 호버와 같은 효과를 유지 */
+.sidebar.clicked {
+    width: calc(100% / 20); /* 클릭 후에도 동일하게 확장된 상태 */
+}
+
+.sidebar.clicked a {
+    opacity: 1; /* 클릭 시 텍스트가 보이도록 설정 */
+}
+
+/* 페이지 콘텐츠 스타일 */
+.content {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+    z-index: 7; /* 텍스트가 하프톤 패턴 위로 올라오도록 설정 */
+    font-family: 'Courier New', Courier, monospace; 
+
+}
+
+
+
+.printercover {
+    width: 60%; /* 적절한 너비 설정 */
+    height: auto; /* 비율 유지 */
+    position: relative; /* 자식 요소의 위치 기준 */
+    display: flex; /* 레이아웃 설정 (필요 시) */
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center;
+    margin: auto; /* 위아래 여백 */
+    z-index: 1; /* 우선 순위 낮음 */
+}
+.printercover img {
+    max-width: 90%; /* 이미지를 부모 크기에 맞춤 */
+    height: auto; /* 이미지 비율 유지 */
+
+}
+
+/* 컨테이너 스타일 */
+.printtrigger {
+    position: absolute; /* 부모 기준으로 정렬 */
+    width: 30%; /* 크기를 유지 */
+    height: 100%; /* 크기를 유지 */
+    top: 100%; /* 세로 위치 조정 (화면에 표시된 위치 기준) */
+    left: 50%; /* 가로 중앙 정렬 */
+    transform: translate(-50%, -20%); /* 세로 중심에서 약간 위로 이동 */
+    z-index: 3; /* .printercover 위에 위치 */
+    background-size: cover;
+    background-position: center;
+}
+
+
+#svg-halftone-pattern {
+    position: absolute; /* printcover 내부에 맞게 정렬 */
+    top: 30%; /* 빨간 네모의 위쪽 위치 조정 */
+    left: 33%; /* 빨간 네모의 왼쪽 위치 조정 */
+    width: 35%; /* 빨간 네모의 가로 크기 */
+    height: 30%; /* 빨간 네모의 세로 크기 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2; /* printcover 보다 앞에 위치 */
+    background-color: transparent; /* 필요시 배경 투명 설정 */
+}
+
+#svg-halftone-pattern > #pattern {
+    width: 100%; /* svg-halftone-pattern 크기에 맞춤 */
+    height: 100%; /* svg-halftone-pattern 크기에 맞춤 */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px; /* 점 사이 간격 */
+}
+
+#svg-halftone-pattern > #pattern > .point {
+    width: 2px; /* 점 크기 */
+    height: 2px; /* 점 크기 */
+    transition: width 0.25s ease-out, height 0.25s ease-out, background-color 0.25s ease-out;
+    background-color: rgb(150, 150, 150); /* 기본 점 색상 */
+    border-radius: 100%; /* 점 모양을 원으로 유지 */
+    
+}
+
+
+#svg-halftone-pattern > #pattern > .point.entered {
+    transform: scale(1.5); /* 바꾸어줄 크기 */
+    transform-origin: center center;
+    background-color: rgb(0, 0, 0); /* 바꾸어줄 색상 */
+}
+
+
+#svg-halftone-pattern > #pattern > .point.dragged {
+    background-color: rgb(0, 0, 0); /* 검은색으로 변경 */
+    transform: scale(1.5); /* 크기를 확대 (선택 사항) */
+    transition: none; /* 드래그 중에는 애니메이션 제거 */
+}
+
+
+.point.hidden {
+    visibility: hidden; /* 숨겨진 점은 보이지 않도록 설정 */
+}
